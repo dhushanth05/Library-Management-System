@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - Member Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/member-style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="login-container" class="auth-container">
+            <div class="auth-form">
+                <h2>Library Management System</h2>
+                <div class="logo">
+                    <i class="fas fa-book-open fa-3x"></i>
+                </div>
+                <h3>Member Login</h3>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+                <p><a href="index.html">Admin/Librarian Login</a></p>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-container" class="auth-container hidden">
+            <div class="auth-form">
+                <h2>Library Management System</h2>
+                <div class="logo">
+                    <i class="fas fa-book-open fa-3x"></i>
+                </div>
+                <h3>Member Registration</h3>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-phone">Phone</label>
+                        <input type="text" id="register-phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-address">Address</label>
+                        <textarea id="register-address" name="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </div>
+
+        <!-- Member Dashboard -->
+        <div id="dashboard-container" class="hidden">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Library MS</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" id="global-search" placeholder="Search books...">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="user-menu">
+                        <span id="user-name">User Name</span>
+                        <div class="user-dropdown">
+                            <button id="user-dropdown-btn">
+                                <i class="fas fa-user-circle"></i>
+                            </button>
+                            <div class="dropdown-content hidden">
+                                <a href="#" id="profile-link"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
+                                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Navigation -->
+            <nav class="nav-tabs">
+                <ul>
+                    <li class="active" data-tab="home-tab"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li data-tab="catalog-tab"><a href="#"><i class="fas fa-book"></i> Book Catalog</a></li>
+                    <li data-tab="borrowed-tab"><a href="#"><i class="fas fa-bookmark"></i> My Books</a></li>
+                    <li data-tab="history-tab"><a href="#"><i class="fas fa-history"></i> History</a></li>
+                    <li data-tab="fines-tab"><a href="#"><i class="fas fa-money-bill-wave"></i> Fines</a></li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Home Tab -->
+                <div id="home-tab" class="tab-content">
+                    <div class="welcome-banner">
+                        <h1>Welcome to the Library, <span id="welcome-name">Member</span>!</h1>
+                        <p>Explore our collection of books and enjoy reading.</p>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Books Borrowed</h3>
+                                <p id="books-borrowed-count">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Due Soon</h3>
+                                <p id="due-soon-count">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Pending Fines</h3>
+                                <p id="pending-fines">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-row">
+                        <div class="section">
+                            <h2>Currently Borrowed Books</h2>
+                            <div id="current-books" class="book-list">
+                                <!-- Books will be loaded here -->
+                                <div class="empty-message">You haven't borrowed any books yet.</div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h2>Upcoming Due Dates</h2>
+                            <div id="due-dates" class="due-list">
+                                <!-- Due dates will be loaded here -->
+                                <div class="empty-message">No upcoming due dates.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2>Recommended Books</h2>
+                        <div id="recommended-books" class="book-grid">
+                            <!-- Recommended books will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Catalog Tab -->
+                <div id="catalog-tab" class="tab-content hidden">
+                    <h1>Book Catalog</h1>
+                    
+                    <div class="search-section">
+                        <div class="search-form">
+                            <h3>Advanced Search</h3>
+                            <form id="book-search-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="search-title">Title</label>
+                                        <input type="text" id="search-title" name="title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="search-author">Author</label>
+                                        <input type="text" id="search-author" name="author">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="search-isbn">ISBN</label>
+                                        <input type="text" id="search-isbn" name="isbn">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="search-genre">Genre</label>
+                                        <select id="search-genre" name="genre">
+                                            <option value="">All Genres</option>
+                                            <!-- Genres will be loaded here -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="search-year-from">Year From</label>
+                                        <input type="number" id="search-year-from" name="yearFrom">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="search-year-to">Year To</label>
+                                        <input type="number" id="search-year-to" name="yearTo">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="search-available">Availability</label>
+                                        <select id="search-available" name="available">
+                                            <option value="">All</option>
+                                            <option value="true">Available</option>
+                                            <option value="false">Not Available</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group search-buttons">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="filter-tags" id="filter-tags">
+                        <!-- Active filters will be shown here -->
+                    </div>
+
+                    <div class="book-results">
+                        <div class="results-header">
+                            <h3>Search Results</h3>
+                            <div class="sort-options">
+                                <label for="sort-by">Sort by:</label>
+                                <select id="sort-by">
+                                    <option value="title">Title</option>
+                                    <option value="author">Author</option>
+                                    <option value="year">Publication Year</option>
+                                    <option value="added">Recently Added</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="book-grid" class="book-grid">
+                            <!-- Books will be loaded here -->
+                        </div>
+                        
+                        <div class="pagination" id="catalog-pagination">
+                            <!-- Pagination will be added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Books Tab -->
+                <div id="borrowed-tab" class="tab-content hidden">
+                    <h1>My Books</h1>
+                    
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-target="current-borrowed">Currently Borrowed</button>
+                        <button class="tab-btn" data-target="reserved-books">Reserved Books</button>
+                    </div>
+                    
+                    <div id="current-borrowed" class="sub-tab-content">
+                        <div class="borrowed-books-list">
+                            <!-- Currently borrowed books will be loaded here -->
+                            <div class="empty-message">You haven't borrowed any books yet.</div>
+                        </div>
+                    </div>
+                    
+                    <div id="reserved-books" class="sub-tab-content hidden">
+                        <div class="reserved-books-list">
+                            <!-- Reserved books will be loaded here -->
+                            <div class="empty-message">You haven't reserved any books yet.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Tab -->
+                <div id="history-tab" class="tab-content hidden">
+                    <h1>Borrowing History</h1>
+                    
+                    <div class="history-filters">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="history-date-from">From Date</label>
+                                <input type="date" id="history-date-from">
+                            </div>
+                            <div class="form-group">
+                                <label for="history-date-to">To Date</label>
+                                <input type="date" id="history-date-to">
+                            </div>
+                            <div class="form-group">
+                                <button id="filter-history" class="btn btn-primary">Filter</button>
+                                <button id="reset-history" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-timeline">
+                        <!-- Borrowing history will be loaded here -->
+                        <div class="empty-message">No borrowing history found.</div>
+                    </div>
+                </div>
+
+                <!-- Fines Tab -->
+                <div id="fines-tab" class="tab-content hidden">
+                    <h1>My Fines</h1>
+                    
+                    <div class="fines-summary">
+                        <div class="stat-card wide">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Pending Fines</h3>
+                                <p id="total-pending-fines">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-target="pending-fines">Pending</button>
+                        <button class="tab-btn" data-target="paid-fines">Paid</button>
+                        <button class="tab-btn" data-target="waived-fines">Waived</button>
+                    </div>
+                    
+                    <div id="pending-fines" class="sub-tab-content">
+                        <div class="fines-list">
+                            <!-- Pending fines will be loaded here -->
+                            <div class="empty-message">No pending fines.</div>
+                        </div>
+                    </div>
+                    
+                    <div id="paid-fines" class="sub-tab-content hidden">
+                        <div class="fines-list">
+                            <!-- Paid fines will be loaded here -->
+                            <div class="empty-message">No paid fines.</div>
+                        </div>
+                    </div>
+                    
+                    <div id="waived-fines" class="sub-tab-content hidden">
+                        <div class="fines-list">
+                            <!-- Waived fines will be loaded here -->
+                            <div class="empty-message">No waived fines.</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <p>&copy; 2025 Library Management System</p>
+                    <div class="footer-links">
+                        <a href="#">About</a>
+                        <a href="#">Contact</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Book Details Modal -->
+    <div id="book-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Book Title</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="book-details">
+                <!-- Book details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- JavaScript Modules -->
+    <script src="js/auth-module.js"></script>
+    <script src="js/catalog-module.js"></script>
+    <script src="js/books-module.js"></script>
+    <!-- Prevent console errors by defining global objects that might be referenced -->
+    <script>
+        // Prevent console errors by defining empty objects for admin scripts
+        window.dashboardModule = { init: function() {} };
+        window.membersModule = { init: function() {} };
+        window.reportsModule = { init: function() {} };
+        window.settingsModule = { init: function() {} };
+    </script>
+    
+    <script src="js/history-module.js"></script>
+    <script src="js/fines-module.js"></script>
+    <script src="js/member-main.js"></script>
+</body>
+</html>

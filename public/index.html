@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="login-container" class="auth-container">
+            <div class="auth-form">
+                <h2>Library Management System</h2>
+                <div class="logo">
+                    <i class="fas fa-book-open fa-3x"></i>
+                </div>
+                <h3>Login</h3>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-container" class="auth-container hidden">
+            <div class="auth-form">
+                <h2>Library Management System</h2>
+                <div class="logo">
+                    <i class="fas fa-book-open fa-3x"></i>
+                </div>
+                <h3>Register</h3>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-phone">Phone</label>
+                        <input type="text" id="reg-phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-address">Address</label>
+                        <textarea id="reg-address" name="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm-password">Confirm Password</label>
+                        <input type="password" id="reg-confirm-password" name="confirmPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="dashboard-container" class="hidden">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Library MS</span>
+                    </div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="active" data-page="dashboard">
+                        <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
+                    <li data-page="books">
+                        <a href="#"><i class="fas fa-book"></i> Books</a>
+                    </li>
+                    <li data-page="members">
+                        <a href="#"><i class="fas fa-users"></i> Members</a>
+                    </li>
+                    <li data-page="transactions">
+                        <a href="#"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                    </li>
+                    <li data-page="fines">
+                        <a href="#"><i class="fas fa-money-bill-wave"></i> Fines</a>
+                    </li>
+                    <li data-page="reports">
+                        <a href="#"><i class="fas fa-chart-bar"></i> Reports</a>
+                    </li>
+                    <li data-page="settings">
+                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                    </li>
+                    <li id="logout-btn">
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Top Navbar -->
+                <div class="navbar">
+                    <div class="navbar-left">
+                        <button id="toggle-sidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    <div class="navbar-right">
+                        <div class="user-info">
+                            <span id="user-name">User Name</span>
+                            <span id="user-role" class="badge">Role</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="content">
+                    <!-- Dashboard Page -->
+                    <div id="dashboard-page" class="content-page">
+                        <h1>Dashboard</h1>
+                        <div class="stats-container">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Total Books</h3>
+                                    <p id="total-books">0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Total Members</h3>
+                                    <p id="total-members">0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Books Borrowed</h3>
+                                    <p id="books-borrowed">0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Overdue Books</h3>
+                                    <p id="overdue-books">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-sections">
+                            <div class="section">
+                                <h2>Recent Transactions</h2>
+                                <div class="table-responsive">
+                                    <table id="recent-transactions-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Book</th>
+                                                <th>Member</th>
+                                                <th>Borrow Date</th>
+                                                <th>Due Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Transactions will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="section">
+                                <h2>Overdue Books</h2>
+                                <div class="table-responsive">
+                                    <table id="overdue-books-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Book</th>
+                                                <th>Member</th>
+                                                <th>Due Date</th>
+                                                <th>Days Overdue</th>
+                                                <th>Fine</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Overdue books will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Books Page -->
+                    <div id="books-page" class="content-page hidden">
+                        <div class="page-header">
+                            <h1>Books Management</h1>
+                            <button id="add-book-btn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add New Book
+                            </button>
+                        </div>
+
+                        <div class="search-section">
+                            <div class="search-form">
+                                <h3>Advanced Search</h3>
+                                <form id="book-search-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-title">Title</label>
+                                            <input type="text" id="search-title" name="title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-author">Author</label>
+                                            <input type="text" id="search-author" name="author">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-isbn">ISBN</label>
+                                            <input type="text" id="search-isbn" name="isbn">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-genre">Genre</label>
+                                            <input type="text" id="search-genre" name="genre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-publisher">Publisher</label>
+                                            <input type="text" id="search-publisher" name="publisher">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-available">Availability</label>
+                                            <select id="search-available" name="available">
+                                                <option value="">All</option>
+                                                <option value="true">Available</option>
+                                                <option value="false">Not Available</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-year-from">Year From</label>
+                                            <input type="number" id="search-year-from" name="yearFrom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-year-to">Year To</label>
+                                            <input type="number" id="search-year-to" name="yearTo">
+                                        </div>
+                                        <div class="form-group search-buttons">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="books-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>ISBN</th>
+                                        <th>Genre</th>
+                                        <th>Publication Year</th>
+                                        <th>Available Copies</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Books will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="books-pagination">
+                            <!-- Pagination will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Members Page -->
+                    <div id="members-page" class="content-page hidden">
+                        <div class="page-header">
+                            <h1>Members Management</h1>
+                            <button id="add-member-btn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add New Member
+                            </button>
+                        </div>
+
+                        <div class="search-section">
+                            <div class="search-form">
+                                <h3>Search Members</h3>
+                                <form id="member-search-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-member-name">Name</label>
+                                            <input type="text" id="search-member-name" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-member-email">Email</label>
+                                            <input type="text" id="search-member-email" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-member-status">Status</label>
+                                            <select id="search-member-status" name="status">
+                                                <option value="">All</option>
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                                <option value="suspended">Suspended</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-member-type">Membership Type</label>
+                                            <select id="search-member-type" name="membershipType">
+                                                <option value="">All</option>
+                                                <option value="standard">Standard</option>
+                                                <option value="premium">Premium</option>
+                                                <option value="student">Student</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group search-buttons">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="members-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Membership Type</th>
+                                        <th>Join Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Members will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="members-pagination">
+                            <!-- Pagination will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Transactions Page -->
+                    <div id="transactions-page" class="content-page hidden">
+                        <div class="page-header">
+                            <h1>Transactions</h1>
+                            <button id="new-transaction-btn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> New Transaction
+                            </button>
+                        </div>
+
+                        <div class="search-section">
+                            <div class="search-form">
+                                <h3>Filter Transactions</h3>
+                                <form id="transaction-search-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-transaction-status">Status</label>
+                                            <select id="search-transaction-status" name="status">
+                                                <option value="">All</option>
+                                                <option value="borrowed">Borrowed</option>
+                                                <option value="returned">Returned</option>
+                                                <option value="overdue">Overdue</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group search-buttons">
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="transactions-table">
+                                <thead>
+                                    <tr>
+                                        <th>Book</th>
+                                        <th>Member</th>
+                                        <th>Borrow Date</th>
+                                        <th>Due Date</th>
+                                        <th>Return Date</th>
+                                        <th>Status</th>
+                                        <th>Fine</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Transactions will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="transactions-pagination">
+                            <!-- Pagination will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Fines Page -->
+                    <div id="fines-page" class="content-page hidden">
+                        <div class="page-header">
+                            <h1>Fines Management</h1>
+                            <button id="calculate-fines-btn" class="btn btn-primary">
+                                <i class="fas fa-calculator"></i> Calculate Fines
+                            </button>
+                        </div>
+
+                        <div class="stats-container">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Total Fines</h3>
+                                    <p id="total-fines-amount">₹0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Pending Fines</h3>
+                                    <p id="pending-fines-amount">₹0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Paid Fines</h3>
+                                    <p id="paid-fines-amount">₹0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Waived Fines</h3>
+                                    <p id="waived-fines-amount">₹0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="search-section">
+                            <div class="search-form">
+                                <h3>Filter Fines</h3>
+                                <form id="fine-search-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="search-fine-status">Payment Status</label>
+                                            <select id="search-fine-status" name="paymentStatus">
+                                                <option value="">All</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="paid">Paid</option>
+                                                <option value="waived">Waived</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group search-buttons">
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="fines-table">
+                                <thead>
+                                    <tr>
+                                        <th>Member</th>
+                                        <th>Book</th>
+                                        <th>Reason</th>
+                                        <th>Amount</th>
+                                        <th>Date Issued</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Fines will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="fines-pagination">
+                            <!-- Pagination will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Reports Page -->
+                    <div id="reports-page" class="content-page hidden">
+                        <h1>Reports</h1>
+                        <div class="reports-container">
+                            <div class="report-card">
+                                <h3>Books Circulation Report</h3>
+                                <p>View statistics about book borrowing patterns</p>
+                                <button class="btn btn-primary" id="book-circulation-report-btn">Generate Report</button>
+                            </div>
+                            <div class="report-card">
+                                <h3>Member Activity Report</h3>
+                                <p>View statistics about member activities</p>
+                                <button class="btn btn-primary" id="member-activity-report-btn">Generate Report</button>
+                            </div>
+                            <div class="report-card">
+                                <h3>Fines Collection Report</h3>
+                                <p>View statistics about fines collected</p>
+                                <button class="btn btn-primary" id="fines-report-btn">Generate Report</button>
+                            </div>
+                            <div class="report-card">
+                                <h3>Overdue Books Report</h3>
+                                <p>View details of all overdue books</p>
+                                <button class="btn btn-primary" id="overdue-report-btn">Generate Report</button>
+                            </div>
+                        </div>
+                        <div id="report-result" class="hidden">
+                            <h2 id="report-title"></h2>
+                            <div id="report-content"></div>
+                            <button class="btn btn-primary" id="export-report-btn">Export as PDF</button>
+                        </div>
+                    </div>
+
+                    <!-- Settings Page -->
+                    <div id="settings-page" class="content-page hidden">
+                        <h1>Settings</h1>
+                        <div class="settings-container">
+                            <div class="settings-section">
+                                <h3>Account Settings</h3>
+                                <form id="account-settings-form">
+                                    <div class="form-group">
+                                        <label for="settings-name">Name</label>
+                                        <input type="text" id="settings-name" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="settings-email">Email</label>
+                                        <input type="email" id="settings-email" name="email" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="settings-phone">Phone</label>
+                                        <input type="text" id="settings-phone" name="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Change Password</h3>
+                                <form id="change-password-form">
+                                    <div class="form-group">
+                                        <label for="current-password">Current Password</label>
+                                        <input type="password" id="current-password" name="currentPassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-password">New Password</label>
+                                        <input type="password" id="new-password" name="newPassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-new-password">Confirm New Password</label>
+                                        <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal Title</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/books.js"></script>
+    <script src="js/members.js"></script>
+    <script src="js/transactions.js"></script>
+    <script src="js/fines.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
